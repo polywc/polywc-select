@@ -92,6 +92,7 @@
                     if (titem.value === _item.value && titem.id === _item.id) {
                         this.selectedIndex = i;
                         this.selectedItem = _item;
+                        this.selectedLabel = _item[this.pathForItemLabel];
                         return;
                     }
                 }//EndFor

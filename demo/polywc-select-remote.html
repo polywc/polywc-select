@@ -27,7 +27,10 @@
 
             <h3>polywc-select that retrieves list of items from a remote URL</h3>
 
-            <polywc-select id="selectDays" label="Week days" remote="items.json"></polywc-select>
+            <polywc-select id="selectDays" label="Week days" remote="items.json" selected-label="{{selectedLabel}}"></polywc-select>
+            <p>
+                Selected the day: <b>[[selectedLabel]]</b>
+            </p>
 
 		</template>
 		<script>
@@ -39,9 +42,7 @@
 				is: 'wc-container',
 				
 				properties: {
-					itemsName: { type: Array, value: model},
-                    selectedItem: { type: Object, value: model[1] },
-
+					selectedLabel:  { type: String, notify: true }
 				}
 			
 			});
