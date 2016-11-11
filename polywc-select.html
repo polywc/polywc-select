@@ -1,0 +1,98 @@
+<!--
+
+    @license
+    Copyright (C) 2016 - Donato Pirozzi (donatopirozzi[at]gmail[dot]com)
+    This file is part of POLYWC library.
+
+    POLYWC is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    POLYWC is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+
+    Distributed under the GNU LGPL v3. For full terms see the file LICENSE.
+    License: http://www.gnu.org/licenses/lgpl.html LGPL version 3 or higher
+
+    Contributors:
+        - Donato Pirozzi (donatopirozzi[at]gmail[dot]com)
+
+-->
+
+<!-- POLYMER libraries -->
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../paper-listbox/paper-listbox.html">
+<link rel="import" href="../paper-item/paper-item.html">
+
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+
+<dom-module id="polywc-select">
+	<template>
+		<style is="custom-style">
+			iron-icon {
+				fill: #FFD180;
+			}
+			
+			:host {
+       			display: block;
+      		}
+		</style>
+		<paper-dropdown-menu label="[[label]]">
+		  <paper-listbox class="dropdown-content" selected="{{selectedIndex}}">
+		    <template is="dom-repeat" items="[[items]]">
+		    	<paper-item>
+		    		<template is="dom-if" if="[[item.warning]]">
+		    			<iron-icon icon="icons:warning" item-icon></iron-icon>
+		    		</template>
+		    		[[item.value]]
+		    	</paper-item>
+		    </template>
+		  </paper-listbox>
+		</paper-dropdown-menu>
+	</template>
+	<script>
+		Polymer({
+			is: 'polywc-select',
+			
+			properties: {
+				label: 			{ type: String, value: '' },
+				items: 			{ type: Array, value: [], notify: true },
+
+                selectedIndex: 	{ type: Number, observer: 'handleIndexChanged' },
+                selectedItem:   { type: Object, observer: 'handleItemChanged', notify: true }
+			},
+			
+			handleIndexChanged: function(index) {
+				if (typeof this.items === 'undefined') return;
+				if (this.items.length > index)
+				    this.selectedItem = this.items[index];
+			},
+
+            handleItemChanged: function(_item) {
+                if (typeof _item === 'undefined') _item = null;
+
+                var i;
+                for (i = 0; i < this.items.length; i++) {
+                    var titem = this.items[i];
+                    if (titem.value === _item.value && titem.id === _item.id) {
+                        this.selectedIndex = i;
+                        this.selectedItem = _item;
+                        return;
+                    }
+                }//EndFor
+
+                //Item Not Found.
+                //var _item = {id: -1, value: val, warning: (val != '')};
+                this.push('items', _item);
+                this.selectedIndex = i;
+                this.selectedItem = _item;
+            }
+
+		});
+	</script>
+</dom-module>

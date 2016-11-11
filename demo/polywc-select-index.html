@@ -1,0 +1,44 @@
+<!doctype html>
+
+<html>
+<head>
+	<!-- Polymer Dependency -->
+	<link rel="import" href="../../../../bower_components/polymer/polymer.html">
+	<link rel="import" href="../../../../bower_components/paper-button/paper-button.html">
+	
+	<!-- PolyWC components -->
+	<link rel="import" href="../polywc-select.html">
+</head>
+<body>
+
+	<wc-container></wc-container>	
+	
+	<!-- This wc is just for testing and contains the custom wc to test -->
+	<dom-module id="wc-container">
+		<template>
+			<polywc-select id="selNames" label="Names" items="[[itemsName]]" selected-item="{{selectedItem}}"></polywc-select>
+			<polywc-select id="selEmpty" label="Empty"></polywc-select>		
+			
+			<p>
+				Selected name: <b>[[selectedItem.value]]</b>, Selected id <b>[[selectedItem.id]]</b>
+ 			</p>
+			<paper-button on-click="handleClick">Get Selection</paper-button>
+		</template>
+		<script>
+
+            var model = [ { id: 1, value: 'Mario' },
+                          { id: 2, value: 'Pasquale'} ];
+
+			Polymer({
+				is: 'wc-container',
+				
+				properties: {
+					itemsName: { type: Array, value: model},
+                    selectedItem: { type: Object, value: model[1] }
+				}
+			
+			});
+		</script>
+	</dom-module>
+</body>
+</html>
