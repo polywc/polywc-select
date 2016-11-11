@@ -70,6 +70,7 @@
 
                 selectedIndex: 	    { type: Number, observer: 'handleIndexChanged' },
                 selectedItem:       { type: Object, observer: 'handleItemChanged', notify: true },
+                selectedLabel:      { type: String, notify: true },
 
                 remote:             { type: String, value: null, observer: 'handleRemoteChanged' },
                 pathForItems:       { type: String, value: null },
@@ -100,6 +101,7 @@
                 this.push('items', _item);
                 this.selectedIndex = i;
                 this.selectedItem = _item;
+                this.selectedLabel = _item[this.pathForItemLabel];
             },
 
             handleRemoteChanged: function(_remote) {
