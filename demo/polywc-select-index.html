@@ -3,8 +3,8 @@
 <html>
 <head>
 	<!-- Polymer Dependency -->
-	<link rel="import" href="../../../../bower_components/polymer/polymer.html">
-	<link rel="import" href="../../../../bower_components/paper-button/paper-button.html">
+	<link rel="import" href="../../polymer/polymer.html">
+	<link rel="import" href="../../paper-button/paper-button.html">
 	
 	<!-- PolyWC components -->
 	<link rel="import" href="../polywc-select.html">
@@ -23,6 +23,12 @@
 				Selected name: <b>[[selectedItem.value]]</b>, Selected id <b>[[selectedItem.id]]</b>
  			</p>
 			<paper-button on-click="handleClick">Get Selection</paper-button>
+
+
+            <h3>polywc-select that retrieves list of items from a remote URL</h3>
+
+            <polywc-select id="selectDays" label="Week days" remote="items.json"></polywc-select>
+
 		</template>
 		<script>
 
